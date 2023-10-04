@@ -1,0 +1,74 @@
+﻿@model ShoppingListViewModel
+<div class="col-3 pb-4">
+    <div class="card h-100 ">
+        <div class="card-body row g-2">
+            <div class="">
+                <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+                    <h5 class="m-0 me-2" style="font-weight:700; font-size:larger">@Model.Name</h5>
+                    <div class="btn-group">
+                        <a asp-action="ShoppingList" asp-route-id="@Model.Id" type="button" class="btn btn-primary btn-xs">Git</a>
+                        <button type="button"
+                                class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                data-bs-reference="parent">
+                            <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <a class="dropdown-item" asp-action="ShoppingLists" asp-controller="Home" asp-route-id="@Model.Id" ><i class="mdi mdi-pencil-outline me-1"></i> Düzenle</a>
+                            <a class="dropdown-item" asp-action="DeleteShoppingList" asp-controller="Home" asp-route-id="@Model.Id"><i class="mdi mdi-trash-can-outline me-1"></i> Sil</a>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="pt-2">
+                    <ul class="p-0 m-0">
+                        @if(Model.Products.Count >= 3)
+                        {
+                            for(int i = 0; i<3; i++)
+                            {
+                                <li class="d-flex mb-4 align-items-center pb-2">
+                                    <div class="flex-shrink-0 me-3">
+                                        <img src="/assets/img/icons/payments/gumroad.png"
+                                             class="img-fluid"
+                                             alt="gumroad"
+                                             height="30"
+                                             width="30" />
+                                    </div>
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <h6 class="mb-0">@Model.Products[i].Name</h6>
+                                            <small>@Model.Products[i].Category.Name</small>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < Model.Products.Count; i++)
+                            {
+                                <li class="d-flex mb-4 align-items-center pb-2">
+                                    <div class="flex-shrink-0 me-3">
+                                        <img src="/assets/img/icons/payments/gumroad.png"
+                                             class="img-fluid"
+                                             alt="gumroad"
+                                             height="30"
+                                             width="30" />
+                                    </div>
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <h6 class="mb-0">@Model.Products[i].Name</h6>
+                                            <small>@Model.Products[i].Category.Name</small>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

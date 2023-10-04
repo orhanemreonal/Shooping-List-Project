@@ -1,0 +1,71 @@
+﻿@model CategoriesViewModel
+
+<div class="card mb-4 row">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Kategori Ekle</h5>
+
+    </div>
+    <div class="card-body">
+        @if(Model.CategoryToEdit != null)
+        {
+            <form asp-action="Categories" asp-controller="Admin" method="post">
+                <div class="form-floating form-floating-outline mb-4">
+                    <input asp-for="@Model.CategoryToEdit.Id" type="text" style="display:none" class="form-control" id="basic-default-fullname" />
+                    <input asp-for="@Model.CategoryToEdit.Name" type="text" class="form-control" id="basic-default-fullname" placeholder="Kategori Giriniz" />
+                    <label for="basic-default-fullname">Kategori Adı</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Düzenle</button>
+            </form>
+        }
+        else
+        {
+            <form asp-action="Categories" asp-controller="Admin" method="post">
+                <div class="form-floating form-floating-outline mb-4">
+                    <input asp-for="@Model.Category.Name" type="text" class="form-control" id="basic-default-fullname" placeholder="Kategori Giriniz" />
+                    <label for="basic-default-fullname">Kategori Adı</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Ekle</button>
+            </form>
+        }
+        
+    </div>
+</div>
+
+<div class="card">
+    <h5 class="card-header">Kategori Listesi</h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Category</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @for (int i = 0; i < Model.List.Count; i++){
+                    <tr class="@(i%2 == 0 ? "table-primary" : "table-secondary")">
+                        <td>
+                            <span class="fw-medium">@Model.List[i].Id</span>
+                        </td>
+                        <td>
+                            <span class="fw-medium">@Model.List[i].Name</span>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="mdi mdi-dots-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-action="Categories" asp-controller="Admin" asp-route-id="@Model.List[i].Id"><i class="mdi mdi-pencil-outline me-1"></i> Edit</a>
+                                    <a class="dropdown-item" asp-action="DeleteCategory" asp-controller="Admin" asp-route-id="@Model.List[i].Id"><i class="mdi mdi-trash-can-outline me-1"></i> Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+               
+            </tbody>
+        </table>
+    </div>
+</div>

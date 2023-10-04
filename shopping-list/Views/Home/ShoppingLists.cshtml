@@ -1,0 +1,41 @@
+﻿@model ShoppingListsViewModel
+
+
+<div class="card mb-4 row">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Alışveriş Listesi Ekle</h5>
+
+    </div>
+    <div class="card-body">
+        @if(Model.ShoppingListToEdit != null)
+        {
+            <form asp-action="ShoppingLists" asp-controller="Home" method="post">
+                <div class="form-floating form-floating-outline mb-4">
+                    <input asp-for="@Model.ShoppingListToEdit.Id" type="text" style="display:none" class="form-control" id="basic-default-fullname" />
+                    <input asp-for="@Model.ShoppingListToEdit.Name" type="text" class="form-control" id="basic-default-fullname" placeholder="Ad" />
+                    <label for="basic-default-fullname">Alışveriş Listesi Adı</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Düzenle</button>
+            </form>
+        }
+        else
+        {
+            <form asp-action="ShoppingLists" asp-controller="Home" method="post">
+                <div class="form-floating form-floating-outline mb-4">
+                    <input asp-for="@Model.ShoppingList.Name" type="text" class="form-control" id="basic-default-fullname" placeholder="Ad" />
+                    <label for="basic-default-fullname">Alışveriş Listesi Adı</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Ekle</button>
+            </form>
+        }
+        
+    </div>
+</div>
+<div class="row">
+    @foreach (var shoppingListViewModel in Model.List)
+    {
+        @await Component.InvokeAsync("ShoppingListItem",shoppingListViewModel)
+    }
+</div>

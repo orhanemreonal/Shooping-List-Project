@@ -1,0 +1,84 @@
+﻿@model ShoppingListViewModel
+
+<div class="card mb-4 row">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Ürün Ekle</h5>
+
+    </div>
+    <div class="card-body">
+
+        <form asp-action="ShoppingList" asp-controller="Home" method="post">
+            <div class="row">
+                <div class="form-floating form-floating-outline mb-4 col-4">
+                    <select asp-for="@Model.Product.Id" class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
+
+                        @foreach (var item in Model.Products)
+                        {
+                            <option value="@(item.Id)">@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-floating form-floating-outline mb-4 col-4">
+                    <input asp-for="@Model.Product.Description" type="text" class="form-control" id="basic-default-fullname" placeholder="Ürün açıklaması" />
+                    <label style="left:10px" for="basic-default-fullname">Ürün Açıklaması</label>
+                </div>
+                <button type="submit" class="btn btn-primary col-2 btn-sm" style="height:45px">Ekle</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div class="card">
+    <div class="d-flex justify-content-between ">
+        <h5 class="card-header">@Model.Name</h5>
+ 
+        <a asp-action="Shopping" asp-controller="Home" asp-route-id="@Model.Id" class="btn btn-primary btn-xs">
+            <span class="tf-icons mdi mdi-checkbox-marked-circle-outline me-1"></span>Alışverişe Çıkıyorum
+        </a>
+    </div>
+
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ürün</th>
+                    <th>Kategori</th>
+                    <th>Açıklama</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+
+
+                @for (int i = 0; i < Model.List.Count; i++)
+                {
+                    <tr class="@(i%2 == 0 ? "table-primary" : "table-secondary")">
+                        <td>
+                            <span class="fw-medium">@Model.List[i].Name</span>
+                        </td>
+                        <td>
+                            <span class="fw-medium">@Model.List[i].Category.Name</span>
+                        </td>
+                        <td>
+                            <span class="fw-medium">@Model.List[i].Description</span>
+                        </td>
+
+                        <td>
+                            <form asp-action="DeleteProductListItem" asp-controller="Home" method="post">
+                                <input value="@Model.List[i].Id" type="hidden" asp-for="@Model.ProductToDelete.ProductId" />
+                                <input value="@Model.Id" type="hidden" asp-for="@Model.ProductToDelete.ShoppingListId" />
+                                <button asp-action="DeleteProductListItem" asp-controller="Home" type="submit" class="btn rounded-pill btn-icon btn-outline-primary">
+                                    <span class="tf-icons mdi mdi-trash-can"></span>
+                                </button>
+                            </form>
+                            
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

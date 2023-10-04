@@ -1,0 +1,79 @@
+﻿@using shopping_list.Models.Identity;
+@model ApplicationUser
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Hesap Detayları /</span> Hesap</h4>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-pills flex-column flex-md-row mb-4 gap-2 gap-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="javascript:void(0);"><i class="mdi mdi-account-outline mdi-20px me-1"></i>Hesap</a>
+                </li>
+            </ul>
+            <div class="card mb-4">
+                <h4 class="card-header">Hesap Bilgileri</h4>
+                <!-- Account -->
+                <div class="card-body">
+                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                        <img src="../assets/img/avatars/1.png"
+                             alt="user-avatar"
+                             class="d-block w-px-120 h-px-120 rounded"
+                             id="uploadedAvatar" />
+                        <div class="button-wrapper">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body pt-2 mt-1">
+                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <div class="row mt-2 gy-4">
+                            <div class="col-md-6">
+                                <div class="form-floating form-floating-outline">
+                                    <input class="form-control"
+                                           type="text"
+                                           id="firstName"
+                                           name="firstName"
+                                           value="@Model.Name"
+                                           autofocus 
+                                           disabled/>
+                                    <label for="firstName">Ad</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating form-floating-outline">
+                                    <input disabled class="form-control" type="text" name="lastName" id="lastName" value="@Model.Surname" />
+                                    <label for="lastName">Soyad</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating form-floating-outline">
+                                    <input class="form-control"
+                                           type="text"
+                                           id="email"
+                                           name="email"
+                                           value="@Model.UserName"
+                                           placeholder="@Model.UserName"
+                                           disabled />
+                                    <label for="email">Kullanıcı Adı</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating form-floating-outline">
+                                    <input class="form-control"
+                                           type="text"
+                                           id="email"
+                                           name="email"
+                                           value="@Model.Email"
+                                           placeholder="@Model.Email" 
+                                           disabled/>
+                                    <label for="email">E-mail</label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>

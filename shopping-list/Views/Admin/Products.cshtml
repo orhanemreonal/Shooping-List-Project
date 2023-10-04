@@ -1,0 +1,83 @@
+﻿@model ProductsViewModel
+
+@if(Model.ProductToEdit != null)
+{
+    <form asp-action="Products" asp-controller="Admin" method="post">
+        <div class="row">
+            <div class="form-floating form-floating-outline mb-4 col-4">
+                <input asp-for="@Model.ProductToEdit.Id" type="text" style="display:none" id="basic-default-fullname" />
+                <input asp-for="@Model.ProductToEdit.Name" type="text" class="form-control" id="basic-default-fullname" placeholder="Ürün giriniz." />
+                <label style="left:10px" for="basic-default-fullname">Ürün Adı</label>
+            </div>
+            <div class="form-floating form-floating-outline mb-4 col-4">
+                <select asp-for="@Model.ProductToEdit.CategoryId" class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
+                    
+                    @foreach (var item in Model.Categories)
+                    {
+                        <option selected="@(item.Value == Model.ProductToEdit.CategoryId.ToString())" value="@(item.Value)">@item.Text</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary col-2 btn-sm" style="height:45px">Düzenle</button>
+        </div>
+    </form>
+}
+else
+{
+    <form asp-action="Products" asp-controller="Admin" method="post">
+        <div class="row">
+            <div class="form-floating form-floating-outline mb-4 col-4">
+                <input asp-for="@Model.Product.Name" type="text" class="form-control" id="basic-default-fullname" placeholder="Ürün giriniz." />
+                <label style="left:10px" for="basic-default-fullname">Ürün Adı</label>
+            </div>
+            <div class="form-floating form-floating-outline mb-4 col-4">
+                <select asp-for="@Model.Product.CategoryId" class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
+                    <option selected>Kategori seçmek için tıklayınız.</option>
+                    @foreach (var item in Model.Categories)
+                    {
+                        <option value="@(item.Value)">@item.Text</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary col-2 btn-sm" style="height:45px">Ekle</button>
+        </div>
+    </form>
+}
+
+
+<div class="card">
+    <h5 class="card-header">Ürünler</h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @for (int i = 0; i < Model.List.Count; i++)
+                {
+                    <tr class="@(i%2 == 0 ? "table-primary" : "table-secondary")">
+                        <td>
+                            <span class="fw-medium">@Model.List[i].Name</span>
+                        </td>
+                        <td>@Model.List[i].Category.Name</td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="mdi mdi-dots-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-action="Products" asp-controller="Admin" asp-route-id="@Model.List[i].Id"><i class="mdi mdi-pencil-outline me-1"></i> Edit</a>
+                                    <a class="dropdown-item" asp-action="DeleteProduct" asp-controller="Admin" asp-route-id="@Model.List[i].Id"><i class="mdi mdi-trash-can-outline me-1"></i> Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

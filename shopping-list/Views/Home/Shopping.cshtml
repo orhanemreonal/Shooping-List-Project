@@ -1,0 +1,55 @@
+﻿@model ShoppingViewModel
+
+<form asp-action="Shopping" asp-controller="Home" method="post">
+    <div class="table-responsive text-nowrap">
+        <input asp-for="@Model.ShoppingListId" type="text" style="display:none" id="basic-default-fullname" />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Durum</th>
+                    <th>Ürün</th>
+                    <th>Kategori</th>
+                    <th>Açıklama</th>
+
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+
+
+                @for (int i = 0; i < Model.Products.Count; i++)
+                {
+                    <input asp-for="@Model.Products[i].Name" type="text" style="display:none" id="basic-default-fullname" />
+                    <input asp-for="@Model.Products[i].Description" type="text" style="display:none" id="basic-default-fullname" />
+                    <input asp-for="@Model.Products[i].Id " type="text" style="display:none" id="basic-default-fullname" />
+                    <tr class="@(i%2 == 0 ? "table-primary" : "table-secondary")">
+                        <td>
+                            <div class="form-check">
+                                <input asp-for="@Model.Products[i].isSelected" class="form-check-input" type="checkbox" id="disabledCheck1" />
+                                <label class="form-check-label" for="disabledCheck1"> Aldım </label>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="fw-medium">@Model.Products[i].Name</span>
+                        </td>
+                        <td>
+                            <span class="fw-medium">@Model.Products[i].Category.Name</span>
+                        </td>
+                        <td>
+                            <span class="fw-medium">@Model.Products[i].Description</span>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <div class="col-3" style="float:right">
+        <button type="submit" asp-action="Shopping" asp-controller="Home" class="btn btn-primary btn-md col-12" style="float:right">
+            <span class="tf-icons mdi mdi-checkbox-marked-circle-outline me-1"></span>
+            Alışverişi Tamamla
+        </button>
+        <p class="mb-4 col-12" style="word-wrap:anywhere">Aldıklarını siler ve listeye geri döner!</p>
+    </div>
+</form>
+
